@@ -34,7 +34,7 @@ if __name__ == '__main__':
 		new_id = id
 	if new_id > config['last_id']:
 		access_token = getenv('MASTODON_ACCESS_TOKEN')
-		entry_url = f'{config["potiboard_url"]}/potiboard.php?res={new_id}'
+		entry_url = f'{config["potiboard_url"]}potiboard.php?res={new_id}'
 		status = f'{config["message"]}\n{entry_url}'
 		if post_entry(config['mastodon_url'], access_token, status):
 			config['last_id'] = new_id
