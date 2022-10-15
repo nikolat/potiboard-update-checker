@@ -22,6 +22,12 @@ def post_entry(mastodon_url, access_token, status, visibility='unlisted'):
 	r = requests.post(url, data=payload, headers=headers)
 	return r.status_code == 200
 
+def represent_str(dumper, instance):
+	if '\n' in instance:
+		return dumper.represent_scalar('tag:yaml.org,2002:str', instance, style='|')
+	else:
+		return dumper.represent_scalar('tag:yaml.org,2002:str', instance)
+
 if __name__ == '__main__':
 	config_filename = 'config.yml'
 	with open(config_filename, encoding='utf-8') as file:
@@ -39,6 +45,7 @@ if __name__ == '__main__':
 		if post_entry(config['mastodon_url'], access_token, status):
 			config['last_id'] = new_id
 			with open(config_filename, 'w', encoding='utf-8') as file:
+				yaml.add_representer(str, represent_str)
 				yaml.dump(config, file, default_flow_style=False, allow_unicode=True)
 			print('Info: Found new entry.')
 			sys.exit(0)
