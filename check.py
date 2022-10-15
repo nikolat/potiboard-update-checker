@@ -24,7 +24,7 @@ def post_entry(mastodon_url, access_token, status, visibility='unlisted'):
 
 if __name__ == '__main__':
 	config_filename = 'config.yml'
-	with open(config_filename) as file:
+	with open(config_filename, encoding='utf-8') as file:
 		config = yaml.safe_load(file)
 	ids = get_ids(config['potiboard_url'])
 	new_id = -1
@@ -38,8 +38,8 @@ if __name__ == '__main__':
 		status = f'{config["message"]}\n{entry_url}'
 		if post_entry(config['mastodon_url'], access_token, status):
 			config['last_id'] = new_id
-			with open(config_filename, 'w') as file:
-				yaml.dump(config, file, allow_unicode=True)
+			with open(config_filename, 'w', encoding='utf-8') as file:
+				yaml.dump(config, file, default_flow_style=False, allow_unicode=True)
 			print('Info: Found new entry.')
 			sys.exit(0)
 		else:
