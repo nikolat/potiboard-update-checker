@@ -23,7 +23,7 @@ def post_entry(mastodon_url, access_token, status, visibility = 'unlisted'):
 	return r.status_code == 200
 
 if __name__ == '__main__':
-	config_filename = 'config.yaml'
+	config_filename = 'config.yml'
 	with open(config_filename) as file:
 		config = yaml.safe_load(file)
 	ids = get_ids(config['potiboard_url'])
