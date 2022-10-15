@@ -15,11 +15,11 @@ def get_ids(baseurl):
 			ids.append(int(result.group(1)))
 	return ids
 
-def post_entry(mastodon_url, access_token, status, visibility = 'unlisted'):
+def post_entry(mastodon_url, access_token, status, visibility='unlisted'):
 	url = f'{mastodon_url}api/v1/statuses'
 	headers = {'Authorization': f'Bearer {access_token}'}
 	payload = {'status': status, 'visibility': visibility}
-	r = requests.post(url, data = payload, headers = headers)
+	r = requests.post(url, data=payload, headers=headers)
 	return r.status_code == 200
 
 if __name__ == '__main__':
